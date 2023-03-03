@@ -1,6 +1,14 @@
 # Compiled class file
 *.class
 
+# User-specific stuff
+.idea/**
+
+target/**
+
+# File-based project format
+*.iws
+
 # Log file
 *.log
 
