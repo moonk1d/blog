@@ -1,7 +1,7 @@
 package com.nazarov.projects.blog.models.dtos;
 
+import jakarta.validation.constraints.NotBlank;
 import java.util.List;
-import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
