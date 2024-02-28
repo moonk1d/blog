@@ -56,11 +56,11 @@ class LoadDatabase {
 
       log.info("Preloading posts: ");
       BlogPost post1 = new BlogPost("How I Found the Ring", "Once upon a time, I found a shiny ring in a dark cave. You won't believe what happened next!", user1, Set.of(tag1, tag2));
-      BlogPost post2 = new BlogPost("Life in the Shire", "Living in the Shire isn't that boring as it might seem, especially when there's second breakfast to look forward to!", user1);
-      BlogPost post3 = new BlogPost("My Journey with the Ring", "Carrying the ring isn't easy, but I am determined to do my duty. Wish me luck!", user2);
-      BlogPost post4 = new BlogPost("Fear and Courage in Mt. Doom", "Facing down Gollum was scary, but I held on and survived the ordeal. Here's how it went.", user2);
-      BlogPost post5 = new BlogPost("Gardening Tips From a Hobbit", "Gardening is a noble profession. Here are a few tips from a seasoned gardener - me!", user3);
-      BlogPost post6 = new BlogPost("Standing up to a Spider", "With sheer grit and a little luck, I tackled a terrifying giant spider. Here's my scary adventure!", user3);
+      BlogPost post2 = new BlogPost("Life in the Shire", "Living in the Shire isn't that boring as it might seem, especially when there's second breakfast to look forward to!", user1, Set.of(tag3, tag2));
+      BlogPost post3 = new BlogPost("My Journey with the Ring", "Carrying the ring isn't easy, but I am determined to do my duty. Wish me luck!", user2, Set.of(tag1));
+      BlogPost post4 = new BlogPost("Fear and Courage in Mt. Doom", "Facing down Gollum was scary, but I held on and survived the ordeal. Here's how it went.", user2, Set.of(tag2));
+      BlogPost post5 = new BlogPost("Gardening Tips From a Hobbit", "Gardening is a noble profession. Here are a few tips from a seasoned gardener - me!", user3, Set.of(tag4));
+      BlogPost post6 = new BlogPost("Standing up to a Spider", "With sheer grit and a little luck, I tackled a terrifying giant spider. Here's my scary adventure!", user3, Set.of(tag1));
       BlogPost post7 = new BlogPost("Wizard's Tales", "Being a wizard isn't all magic and fireworks. It's about wisdom and courage too. Let me share my story with you.", user4);
       BlogPost post8 = new BlogPost("Showdown with the Balrog", "In a duel for the ages, I faced the mighty Balrog. The victory was hard-won, but worth it.", user4);
       BlogPost post9 = new BlogPost("Life after the Ring", "I thought getting the ring would end my troubles. I couldn't be more wrong. It's quite the tale!", user5);

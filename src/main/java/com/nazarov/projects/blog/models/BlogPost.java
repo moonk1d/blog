@@ -11,6 +11,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,7 @@ public class BlogPost {
   private Long id;
   private String subject;
   private String body;
+  private LocalDateTime timestamp;
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User author;
@@ -44,6 +46,7 @@ public class BlogPost {
     this.subject = subject;
     this.body = body;
     this.author = author;
+    this.timestamp = LocalDateTime.now();
   }
 
   public BlogPost(String subject, String body, User author, Set<Tag> tags) {
@@ -51,6 +54,7 @@ public class BlogPost {
     this.body = body;
     this.author = author;
     this.tags = tags;
+    this.timestamp = LocalDateTime.now();
   }
 
 }
