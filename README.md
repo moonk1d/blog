@@ -7,6 +7,12 @@ Test application to learn Spring Boot and REST services
 $ mvn spring-boot:run
 ```
 
+or
+
+```shell
+$ mvn spring-boot:run -Dspring-boot.run.profiles=local
+```
+
 ## Build and run
 
 1. Run to create .jar file
@@ -20,6 +26,6 @@ $ mvn spring-boot:run
 
 ## Generated swagger documentation
 
-http://localhost:8090/blog/swagger-ui/index.html
-http://localhost:8090/blog/v3/api-docs.yaml
+1. http://localhost:8090/blog/swagger-ui/index.html
+2. http://localhost:8090/blog/v3/api-docs.yaml
 
