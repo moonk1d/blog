@@ -2,7 +2,6 @@ package com.nazarov.projects.blog.services;
 
 import com.nazarov.projects.blog.controllers.exceptions.ResourceNotFoundException;
 import com.nazarov.projects.blog.models.BlogPost;
-import com.nazarov.projects.blog.models.dtos.BlogPostDto;
 import com.nazarov.projects.blog.models.mappers.BlogPostEntityMapper;
 import com.nazarov.projects.blog.repositories.BlogPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;

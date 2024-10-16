@@ -2,57 +2,13 @@ server:
   port: 8090
   servlet:
     context-path: /blog
-logging:
-  level:
-    root: DEBUG
-    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %clr(%-5p) - %clr([%-8.15t]){cyan} %clr([%-30.40logger{0}]){blue} - %msg%n"
+
 spring:
-  profiles:
-    active: production
   output:
     ansi:
       enabled: ALWAYS
+
 springdoc:
   swagger-ui:
     path: /swagger
     operationsSorter: method
----
-
-spring:
-  config:
-    activate:
-      on-profile: local
-  datasource:
-    url: jdbc:h2:mem:blog
-    username: sa
-    password: sa
-    driverClassName: org.h2.Driver
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
-        show-sql: true
-  h2:
-    console:
-      enabled: true
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: production
-  datasource:
-    url: jdbc:postgresql://localhost:5432/blog
-    username: admin
-    password: admin
-    driverClassName: org.postgresql.Driver
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        show-sql: true
-        ddl-auto: create-drop
-        default_schema: anv
