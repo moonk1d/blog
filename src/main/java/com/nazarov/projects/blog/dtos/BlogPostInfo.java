@@ -1,4 +1,4 @@
-package com.nazarov.projects.blog.models.dtos;
+package com.nazarov.projects.blog.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package com.nazarov.projects.blog.controllers.exceptions;
+package com.nazarov.projects.blog.exceptions;
 
 import static java.lang.String.format;
 

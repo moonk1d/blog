@@ -1,8 +1,8 @@
 package com.nazarov.projects.blog.models.mappers;
 
 import com.nazarov.projects.blog.models.User;
-import com.nazarov.projects.blog.models.dtos.UserDto;
-import com.nazarov.projects.blog.models.dtos.UserInfo;
+import com.nazarov.projects.blog.dtos.UserDto;
+import com.nazarov.projects.blog.dtos.UserInfo;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

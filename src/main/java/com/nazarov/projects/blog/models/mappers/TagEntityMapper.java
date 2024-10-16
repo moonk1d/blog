@@ -1,7 +1,7 @@
 package com.nazarov.projects.blog.models.mappers;
 
 import com.nazarov.projects.blog.models.Tag;
-import com.nazarov.projects.blog.models.dtos.TagDto;
+import com.nazarov.projects.blog.dtos.TagDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

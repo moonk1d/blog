@@ -2,7 +2,7 @@ package com.nazarov.projects.blog.services;
 
 import com.nazarov.projects.blog.models.BlogPost;
 import com.nazarov.projects.blog.models.User;
-import com.nazarov.projects.blog.models.dtos.UserInfo;
+import com.nazarov.projects.blog.dtos.UserInfo;
 import java.util.List;
 import java.util.Set;
 import org.springframework.data.domain.Page;

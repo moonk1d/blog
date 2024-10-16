@@ -1,4 +1,4 @@
-package com.nazarov.projects.blog.models.dtos;
+package com.nazarov.projects.blog.dtos;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

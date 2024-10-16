@@ -2,10 +2,10 @@ package com.nazarov.projects.blog.controllers;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import com.nazarov.projects.blog.controllers.exceptions.TagExistsException;
-import com.nazarov.projects.blog.models.dtos.BlogPostDto;
-import com.nazarov.projects.blog.models.dtos.PageDTO;
-import com.nazarov.projects.blog.models.dtos.TagDto;
+import com.nazarov.projects.blog.exceptions.TagExistsException;
+import com.nazarov.projects.blog.dtos.BlogPostDto;
+import com.nazarov.projects.blog.dtos.PageDTO;
+import com.nazarov.projects.blog.dtos.TagDto;
 import com.nazarov.projects.blog.models.mappers.BlogPostEntityMapper;
 import com.nazarov.projects.blog.models.mappers.TagEntityMapper;
 import com.nazarov.projects.blog.services.TagService;

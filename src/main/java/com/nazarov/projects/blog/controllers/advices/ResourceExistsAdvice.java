@@ -1,6 +1,6 @@
 package com.nazarov.projects.blog.controllers.advices;
 
-import com.nazarov.projects.blog.controllers.exceptions.TagExistsException;
+import com.nazarov.projects.blog.exceptions.TagExistsException;
 import com.nazarov.projects.blog.models.ErrorResponse;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

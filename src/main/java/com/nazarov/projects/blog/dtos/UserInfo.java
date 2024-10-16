@@ -1,4 +1,4 @@
-package com.nazarov.projects.blog.models.dtos;
+package com.nazarov.projects.blog.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class TagDto {
+public class UserInfo {
 
   private Long id;
   private String name;
+  private String nickName;
 
 }

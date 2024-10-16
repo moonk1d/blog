@@ -2,10 +2,10 @@ package com.nazarov.projects.blog.services;
 
 import static java.util.Objects.isNull;
 
-import com.nazarov.projects.blog.controllers.exceptions.ResourceNotFoundException;
+import com.nazarov.projects.blog.exceptions.ResourceNotFoundException;
 import com.nazarov.projects.blog.models.BlogPost;
 import com.nazarov.projects.blog.models.User;
-import com.nazarov.projects.blog.models.dtos.UserInfo;
+import com.nazarov.projects.blog.dtos.UserInfo;
 import com.nazarov.projects.blog.repositories.UserRepository;
 import java.util.List;
 import java.util.Set;

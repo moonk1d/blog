@@ -2,9 +2,9 @@ package com.nazarov.projects.blog.controllers;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import com.nazarov.projects.blog.models.dtos.BlogPostInfo;
-import com.nazarov.projects.blog.models.dtos.PageDTO;
-import com.nazarov.projects.blog.models.dtos.UserInfo;
+import com.nazarov.projects.blog.dtos.BlogPostInfo;
+import com.nazarov.projects.blog.dtos.PageDTO;
+import com.nazarov.projects.blog.dtos.UserInfo;
 import com.nazarov.projects.blog.models.mappers.BlogPostEntityMapper;
 import com.nazarov.projects.blog.models.mappers.UserEntityMapper;
 import com.nazarov.projects.blog.services.UserService;

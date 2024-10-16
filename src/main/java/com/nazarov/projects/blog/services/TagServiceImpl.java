@@ -1,6 +1,6 @@
 package com.nazarov.projects.blog.services;
 
-import com.nazarov.projects.blog.controllers.exceptions.ResourceNotFoundException;
+import com.nazarov.projects.blog.exceptions.ResourceNotFoundException;
 import com.nazarov.projects.blog.models.Tag;
 import com.nazarov.projects.blog.repositories.TagRepository;
 import java.util.List;

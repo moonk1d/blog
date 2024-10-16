@@ -1,4 +1,4 @@
-package com.nazarov.projects.blog.models.dtos;
+package com.nazarov.projects.blog.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import java.util.List;
