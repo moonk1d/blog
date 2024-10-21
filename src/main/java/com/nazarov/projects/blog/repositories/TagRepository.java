@@ -1,14 +1,21 @@
 package com.nazarov.projects.blog.repositories;
 
 import com.nazarov.projects.blog.models.Tag;
-import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface TagRepository extends JpaRepository<Tag, Long> {
 
   @Query("SELECT t FROM Tag t WHERE t.name = :name")
-  List<Tag> findByName(@Param("name") String name);
+  Optional<Tag> findByName(@Param("name") String name);
+
+  @Modifying
+  @Transactional
+  @Query("DELETE FROM Tag t WHERE t.id = :id")
+  void deleteById(@Param("id") Long id);
 
 }

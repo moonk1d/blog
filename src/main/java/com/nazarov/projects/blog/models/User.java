@@ -3,10 +3,10 @@ package com.nazarov.projects.blog.models;
 import static jakarta.persistence.GenerationType.AUTO;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.PreRemove;
 import jakarta.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,8 +30,9 @@ public class User {
   private Long id;
   private String name;
   private String nickName;
+  // TODO add creation date/timestamp
 
-  @OneToMany(mappedBy = "author")
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
   private Set<BlogPost> posts = new HashSet<>();
 
   public User(String name, String nickName) {
@@ -39,10 +40,4 @@ public class User {
     this.nickName = nickName;
   }
 
-  @PreRemove
-  private void removeUserFromPosts() {
-    for (BlogPost p : posts) {
-      p.setAuthor(null);
-    }
-  }
 }

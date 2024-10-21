@@ -1,16 +1,18 @@
 package com.nazarov.projects.blog.models.mappers;
 
-import com.nazarov.projects.blog.models.Tag;
 import com.nazarov.projects.blog.dtos.TagDto;
+import com.nazarov.projects.blog.models.Tag;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TagEntityMapper {
 
-  @Autowired
-  private ModelMapper mapper;
+  private final ModelMapper mapper;
+
+  public TagEntityMapper(ModelMapper mapper) {
+    this.mapper = mapper;
+  }
 
   public TagDto toDto(Tag tag) {
     return mapper.map(tag, TagDto.class);

@@ -13,4 +13,6 @@ public interface BlogPostService {
   BlogPost createPost(BlogPost blogPost);
 
   void deletePost(Long id);
+
+  BlogPost updatePost(BlogPost blogPost);
 }
