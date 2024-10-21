@@ -10,6 +10,7 @@ import com.nazarov.projects.blog.models.mappers.BlogPostEntityMapper;
 import com.nazarov.projects.blog.models.mappers.TagEntityMapper;
 import com.nazarov.projects.blog.services.TagService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,13 +47,13 @@ public class TagController {
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "{id}", produces = APPLICATION_JSON_VALUE)
-  public TagDto getTagDetails(@PathVariable(value = "id") Long id) {
+  public TagDto getTagDetails(@PathVariable(value = "id") @NotNull Long id) {
     return tagMapper.toDto(tagService.getTag(id));
   }
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "{id}/posts", produces = APPLICATION_JSON_VALUE)
-  public List<BlogPostDto> getPostsForTag(@PathVariable(value = "id") Long id) {
+  public List<BlogPostDto> getPostsForTag(@PathVariable(value = "id") @NotNull Long id) {
     return tagService
         .getTag(id)
         .getPosts()
@@ -63,7 +64,7 @@ public class TagController {
 
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping(path = "{id}", produces = APPLICATION_JSON_VALUE)
-  public void deleteTag(@PathVariable(value = "id") Long id) {
+  public void deleteTag(@PathVariable(value = "id") @NotNull Long id) {
     tagService.deleteTag(id);
   }
 

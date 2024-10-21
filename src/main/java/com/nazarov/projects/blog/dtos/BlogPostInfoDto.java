@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class BlogPostInfo {
+public class BlogPostInfoDto {
 
   private Long id;
   private String subject;

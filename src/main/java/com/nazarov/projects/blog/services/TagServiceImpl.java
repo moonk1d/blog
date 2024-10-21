@@ -1,5 +1,8 @@
 package com.nazarov.projects.blog.services;
 
+import static java.util.Objects.isNull;
+
+import com.nazarov.projects.blog.exceptions.NullIdException;
 import com.nazarov.projects.blog.exceptions.ResourceNotFoundException;
 import com.nazarov.projects.blog.models.BlogPost;
 import com.nazarov.projects.blog.models.Tag;
@@ -31,6 +34,10 @@ public class TagServiceImpl implements TagService {
 
   @Override
   public Tag getTag(Long id) {
+    if (isNull(id)) {
+      throw new NullIdException();
+    }
+
     return tagRepository
         .findById(id)
         .orElseThrow(() -> new ResourceNotFoundException(id));
@@ -59,6 +66,10 @@ public class TagServiceImpl implements TagService {
   @Override
   @Transactional
   public void deleteTag(Long id) {
+    if (isNull(id)) {
+      throw new NullIdException();
+    }
+
     Tag tag = tagRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     removeTagsFromPosts(tag);
     tagRepository.deleteById(id);

@@ -24,7 +24,7 @@ public class BlogPostDto {
   @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
   private LocalDateTime timestamp;
   @NotNull
-  private UserInfo author;
+  private UserInfoDto author;
 
   private List<String> tags;
 

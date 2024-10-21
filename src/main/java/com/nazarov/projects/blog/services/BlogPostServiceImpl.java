@@ -1,5 +1,8 @@
 package com.nazarov.projects.blog.services;
 
+import static java.util.Objects.isNull;
+
+import com.nazarov.projects.blog.exceptions.NullIdException;
 import com.nazarov.projects.blog.exceptions.ResourceNotFoundException;
 import com.nazarov.projects.blog.models.BlogPost;
 import com.nazarov.projects.blog.repositories.BlogPostRepository;
@@ -24,6 +27,10 @@ public class BlogPostServiceImpl implements BlogPostService {
 
   @Override
   public BlogPost getPostDetails(Long id) {
+    if (isNull(id)) {
+      throw new NullIdException();
+    }
+
     return blogPostRepository
         .findById(id)
         .orElseThrow(() -> new ResourceNotFoundException(id));
@@ -37,6 +44,10 @@ public class BlogPostServiceImpl implements BlogPostService {
   @Override
   @Transactional
   public void deletePost(Long id) {
+    if (isNull(id)) {
+      throw new NullIdException();
+    }
+
     blogPostRepository.delete(getPostDetails(id));
   }
 

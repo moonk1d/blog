@@ -2,13 +2,15 @@ package com.nazarov.projects.blog.controllers;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import com.nazarov.projects.blog.dtos.BlogPostInfo;
+import com.nazarov.projects.blog.dtos.BlogPostInfoDto;
+import com.nazarov.projects.blog.dtos.CreateUserDto;
 import com.nazarov.projects.blog.dtos.PageDTO;
-import com.nazarov.projects.blog.dtos.UserInfo;
+import com.nazarov.projects.blog.dtos.UserInfoDto;
 import com.nazarov.projects.blog.models.mappers.BlogPostEntityMapper;
 import com.nazarov.projects.blog.models.mappers.UserEntityMapper;
 import com.nazarov.projects.blog.services.UserService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,26 +41,26 @@ public class UserController {
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(produces = APPLICATION_JSON_VALUE)
-  public PageDTO<UserInfo> getUsers(Pageable page) {
+  public PageDTO<UserInfoDto> getUsers(Pageable page) {
     return PageDTO.create(
-        userService.getUsers(page).map(user -> userMapper.toInfo(user)));
+        userService.getUsers(page).map(user -> userMapper.toInfoDto(user)));
   }
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "{id}", produces = APPLICATION_JSON_VALUE)
-  public UserInfo getUserDetails(@PathVariable(value = "id") Long id) {
-    return userMapper.toInfo(userService.getUser(id));
+  public UserInfoDto getUserDetails(@PathVariable(value = "id") @NotNull Long id) {
+    return userMapper.toInfoDto(userService.getUser(id));
   }
 
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping(path = "{id}", produces = APPLICATION_JSON_VALUE)
-  public void deleteUser(@PathVariable(value = "id") Long id) {
+  public void deleteUser(@PathVariable(value = "id") @NotNull Long id) {
     userService.deleteUser(id);
   }
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "{id}/posts", produces = APPLICATION_JSON_VALUE)
-  public List<BlogPostInfo> getUserPosts(@PathVariable(value = "id") Long id) {
+  public List<BlogPostInfoDto> getUserPosts(@PathVariable(value = "id") @NotNull Long id) {
     return userService
         .getUserPosts(id)
         .stream()
@@ -68,7 +70,7 @@ public class UserController {
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-  public UserInfo createUser(@Valid @RequestBody UserInfo user) {
-    return userMapper.toInfo(userService.createUser(user));
+  public UserInfoDto createUser(@Valid @RequestBody CreateUserDto createUserDto) {
+    return userService.createUser(createUserDto);
   }
 }

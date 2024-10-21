@@ -12,7 +12,7 @@ import com.nazarov.projects.blog.models.BlogPost;
 import com.nazarov.projects.blog.models.Tag;
 import com.nazarov.projects.blog.models.User;
 import com.nazarov.projects.blog.dtos.BlogPostDto;
-import com.nazarov.projects.blog.dtos.UserInfo;
+import com.nazarov.projects.blog.dtos.UserInfoDto;
 import com.nazarov.projects.blog.models.mappers.BlogPostEntityMapper;
 import com.nazarov.projects.blog.models.mappers.UserEntityMapper;
 import com.nazarov.projects.blog.services.BlogPostService;
@@ -65,7 +65,7 @@ class BlogPostIntegrationControllerTest {
         .subject("subject")
         .body("body")
         .author(
-            UserInfo.builder().id(1L).name("user").nickName("userok").build())
+            UserInfoDto.builder().id(1L).name("user").nickName("userok").build())
         .tags(List.of("tag"))
         .build();
     Page<BlogPost> page = new PageImpl<>(posts);
@@ -96,7 +96,7 @@ class BlogPostIntegrationControllerTest {
         .subject("subject")
         .body("body")
         .author(
-            UserInfo.builder().id(1L).name("user").nickName("userok").build())
+            UserInfoDto.builder().id(1L).name("user").nickName("userok").build())
         .tags(List.of("tag"))
         .build();
 

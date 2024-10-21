@@ -3,7 +3,7 @@ package com.nazarov.projects.blog.models.mappers;
 import com.nazarov.projects.blog.models.BlogPost;
 import com.nazarov.projects.blog.models.Tag;
 import com.nazarov.projects.blog.dtos.BlogPostDto;
-import com.nazarov.projects.blog.dtos.BlogPostInfo;
+import com.nazarov.projects.blog.dtos.BlogPostInfoDto;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -27,9 +27,9 @@ public class BlogPostEntityMapper {
         .build();
   }
 
-  public BlogPostInfo toInfo(BlogPost blogPost) {
+  public BlogPostInfoDto toInfo(BlogPost blogPost) {
     return mapper
-        .map(blogPost, BlogPostInfo.class)
+        .map(blogPost, BlogPostInfoDto.class)
         .toBuilder()
         .tags(blogPost
             .getTags()

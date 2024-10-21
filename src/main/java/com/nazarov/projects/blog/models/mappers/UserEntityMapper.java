@@ -1,8 +1,9 @@
 package com.nazarov.projects.blog.models.mappers;
 
+import com.nazarov.projects.blog.dtos.CreateUserDto;
 import com.nazarov.projects.blog.models.User;
 import com.nazarov.projects.blog.dtos.UserDto;
-import com.nazarov.projects.blog.dtos.UserInfo;
+import com.nazarov.projects.blog.dtos.UserInfoDto;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,12 @@ public class UserEntityMapper {
         .build();
   }
 
-  public UserInfo toInfo(User user) {
-    return mapper.map(user, UserInfo.class);
+  public UserInfoDto toInfoDto(User user) {
+    return mapper.map(user, UserInfoDto.class);
+  }
+
+  public User toUserEntity(CreateUserDto userDto) {
+    return mapper.map(userDto, User.class);
   }
 
 }

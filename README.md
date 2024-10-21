@@ -29,3 +29,6 @@ $ mvn spring-boot:run -Dspring-boot.run.profiles=local
 1. http://localhost:8090/blog/swagger-ui/index.html
 2. http://localhost:8090/blog/v3/api-docs.yaml
 
+## How to build postman collection from the generated OpenAPI documentation
+
+1. https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-from-swagger/
