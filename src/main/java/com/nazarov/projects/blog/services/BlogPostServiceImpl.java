@@ -3,14 +3,19 @@ package com.nazarov.projects.blog.services;
 import static java.util.Objects.isNull;
 
 import com.nazarov.projects.blog.dtos.CreateBlogPostDto;
+import com.nazarov.projects.blog.events.TagDeletedEvent;
+import com.nazarov.projects.blog.events.UserDeletedEvent;
 import com.nazarov.projects.blog.exceptions.NullIdException;
 import com.nazarov.projects.blog.exceptions.ResourceNotFoundException;
 import com.nazarov.projects.blog.models.BlogPost;
 import com.nazarov.projects.blog.models.Tag;
 import com.nazarov.projects.blog.models.User;
 import com.nazarov.projects.blog.models.mappers.BlogPostEntityMapper;
+import com.nazarov.projects.blog.models.mappers.UserEntityMapper;
 import com.nazarov.projects.blog.repositories.BlogPostRepository;
+import java.util.List;
 import java.util.Set;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,17 +25,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class BlogPostServiceImpl implements BlogPostService {
 
   private final BlogPostRepository blogPostRepository;
-  private final UserService userService;
   private final TagService tagService;
-
   private final BlogPostEntityMapper blogPostEntityMapper;
+  private final UserEntityMapper userEntityMapper;
 
-  public BlogPostServiceImpl(BlogPostRepository blogPostRepository, UserService userService,
-      TagService tagService, BlogPostEntityMapper blogPostEntityMapper) {
+  public BlogPostServiceImpl(BlogPostRepository blogPostRepository,
+      TagService tagService, BlogPostEntityMapper blogPostEntityMapper,
+      UserEntityMapper userEntityMapper) {
     this.blogPostRepository = blogPostRepository;
-    this.userService = userService;
     this.tagService = tagService;
     this.blogPostEntityMapper = blogPostEntityMapper;
+    this.userEntityMapper = userEntityMapper;
   }
 
   @Override
@@ -50,8 +55,9 @@ public class BlogPostServiceImpl implements BlogPostService {
   }
 
   @Override
+  @Transactional
   public BlogPost createPost(CreateBlogPostDto createBlogPostDto) {
-    User user = userService.getUser(createBlogPostDto.getAuthor());
+    User user = userEntityMapper.toUserEntity(createBlogPostDto.getAuthor());
     Set<Tag> tags = tagService.resolveTags(createBlogPostDto.getTags());
 
     BlogPost post = blogPostEntityMapper.toEntity(createBlogPostDto, user, tags);
@@ -68,14 +74,23 @@ public class BlogPostServiceImpl implements BlogPostService {
     blogPostRepository.delete(getPostDetails(id));
   }
 
-  @Override
-  @Transactional
-  public BlogPost updatePost(BlogPost updatedPost) {
-    BlogPost existingPost = getPostDetails(updatedPost.getId());
-    existingPost.setSubject(updatedPost.getSubject());
-    existingPost.setBody(updatedPost.getBody());
-    existingPost.setTags(updatedPost.getTags());
-    existingPost.setAuthor(updatedPost.getAuthor());
-    return blogPostRepository.save(existingPost);
+  @EventListener
+  public void onUserDeleted(UserDeletedEvent event) {
+    Long userId = event.getUserId();
+    List<BlogPost> posts = blogPostRepository.findByAuthorId(userId);
+    for (BlogPost post : posts) {
+      post.setAuthor(null);
+      blogPostRepository.save(post);
+    }
+  }
+
+  @EventListener
+  public void onTagDeleted(TagDeletedEvent event) {
+    Long tagId = event.getTagId();
+    List<BlogPost> posts = blogPostRepository.findAllByTagId(tagId);
+    for (BlogPost post : posts) {
+      post.getTags().removeIf(tag -> tag.getId().equals(tagId));
+      blogPostRepository.save(post);
+    }
   }
 }

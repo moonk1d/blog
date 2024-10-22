@@ -3,10 +3,10 @@ package com.nazarov.projects.blog.services;
 import static java.util.Objects.isNull;
 
 import com.nazarov.projects.blog.dtos.CreateTagDto;
+import com.nazarov.projects.blog.events.TagDeletedEvent;
 import com.nazarov.projects.blog.exceptions.NullIdException;
 import com.nazarov.projects.blog.exceptions.ResourceNotFoundException;
 import com.nazarov.projects.blog.exceptions.TagExistsException;
-import com.nazarov.projects.blog.models.BlogPost;
 import com.nazarov.projects.blog.models.Tag;
 import com.nazarov.projects.blog.models.mappers.TagEntityMapper;
 import com.nazarov.projects.blog.repositories.TagRepository;
@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,15 +25,15 @@ public class TagServiceImpl implements TagService {
 
   private final TagRepository tagRepository;
 
-  private final BlogPostService blogPostService;
-
   private final TagEntityMapper tagEntityMapper;
 
-  public TagServiceImpl(TagRepository tagRepository, BlogPostService blogPostService,
-      TagEntityMapper tagEntityMapper) {
+  private final ApplicationEventPublisher publisher;
+
+  public TagServiceImpl(TagRepository tagRepository,
+      TagEntityMapper tagEntityMapper, ApplicationEventPublisher publisher) {
     this.tagRepository = tagRepository;
-    this.blogPostService = blogPostService;
     this.tagEntityMapper = tagEntityMapper;
+    this.publisher = publisher;
   }
 
   @Override
@@ -79,13 +80,9 @@ public class TagServiceImpl implements TagService {
   @Override
   @Transactional
   public void deleteTag(Long id) {
-    if (isNull(id)) {
-      throw new NullIdException();
-    }
-
-    Tag tag = tagRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
-    removeTagsFromPosts(tag);
+    Tag tag = getTag(id);
     tagRepository.deleteById(id);
+    publisher.publishEvent(new TagDeletedEvent(this, id));
   }
 
   @Override
@@ -99,10 +96,4 @@ public class TagServiceImpl implements TagService {
     return tags;
   }
 
-  private void removeTagsFromPosts(Tag tag) {
-    for (BlogPost post : tag.getPosts()) {
-      post.getTags().remove(tag);
-      blogPostService.updatePost(post);
-    }
-  }
 }

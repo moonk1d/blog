@@ -1,10 +1,10 @@
 package com.nazarov.projects.blog.services;
 
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 
 import com.nazarov.projects.blog.dtos.CreateUserDto;
 import com.nazarov.projects.blog.dtos.UserInfoDto;
+import com.nazarov.projects.blog.events.UserDeletedEvent;
 import com.nazarov.projects.blog.exceptions.NullIdException;
 import com.nazarov.projects.blog.exceptions.ResourceNotFoundException;
 import com.nazarov.projects.blog.models.BlogPost;
@@ -13,6 +13,7 @@ import com.nazarov.projects.blog.models.mappers.UserEntityMapper;
 import com.nazarov.projects.blog.repositories.UserRepository;
 import java.util.List;
 import java.util.Set;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,15 +24,15 @@ public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
 
-  private final BlogPostService blogPostService;
-
   private final UserEntityMapper userMapper;
 
-  public UserServiceImpl(UserRepository userRepository, BlogPostService blogPostService,
-      UserEntityMapper userMapper) {
+  private final ApplicationEventPublisher publisher;
+
+  public UserServiceImpl(UserRepository userRepository,
+      UserEntityMapper userMapper, ApplicationEventPublisher publisher) {
     this.userRepository = userRepository;
-    this.blogPostService = blogPostService;
     this.userMapper = userMapper;
+    this.publisher = publisher;
   }
 
   @Override
@@ -69,7 +70,7 @@ public class UserServiceImpl implements UserService {
     }
 
     User user = getUser(id);
-    removeUserFromPosts(user);
+    publisher.publishEvent(new UserDeletedEvent(this, id));
     userRepository.delete(user);
   }
 
@@ -93,15 +94,5 @@ public class UserServiceImpl implements UserService {
         .findById(id)
         .orElseThrow(() -> new ResourceNotFoundException(id))
         .getPosts();
-  }
-
-  private void removeUserFromPosts(User user) {
-    Set<BlogPost> posts = user.getPosts();
-    if (nonNull(posts)) {
-      for (BlogPost post : posts) {
-        post.setAuthor(null);
-        blogPostService.updatePost(post);
-      }
-    }
   }
 }

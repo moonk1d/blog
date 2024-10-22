@@ -15,5 +15,4 @@ public interface BlogPostService {
 
   void deletePost(Long id);
 
-  BlogPost updatePost(BlogPost blogPost);
 }

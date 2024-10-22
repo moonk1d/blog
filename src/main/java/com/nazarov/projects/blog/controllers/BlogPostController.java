@@ -8,10 +8,7 @@ import com.nazarov.projects.blog.dtos.CreateBlogPostDto;
 import com.nazarov.projects.blog.dtos.PageDTO;
 import com.nazarov.projects.blog.models.BlogPost;
 import com.nazarov.projects.blog.models.mappers.BlogPostEntityMapper;
-import com.nazarov.projects.blog.models.mappers.UserEntityMapper;
 import com.nazarov.projects.blog.services.BlogPostService;
-import com.nazarov.projects.blog.services.TagService;
-import com.nazarov.projects.blog.services.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,16 +31,7 @@ public class BlogPostController {
   private BlogPostService blogPostService;
 
   @Autowired
-  private UserService userService;
-
-  @Autowired
-  private TagService tagService;
-
-  @Autowired
   private BlogPostEntityMapper blogPostMapper;
-
-  @Autowired
-  private UserEntityMapper userMapper;
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(produces = APPLICATION_JSON_VALUE)

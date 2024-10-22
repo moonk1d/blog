@@ -1,10 +1,9 @@
 package com.nazarov.projects.blog.models.mappers;
 
 import com.nazarov.projects.blog.dtos.CreateUserDto;
-import com.nazarov.projects.blog.models.User;
 import com.nazarov.projects.blog.dtos.UserDto;
 import com.nazarov.projects.blog.dtos.UserInfoDto;
-import java.util.stream.Collectors;
+import com.nazarov.projects.blog.models.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +25,7 @@ public class UserEntityMapper {
             .getPosts()
             .stream()
             .map(post -> blogPostEntityMapper.toInfo(post))
-            .collect(Collectors.toList()))
+            .toList())
         .build();
   }
 
@@ -35,6 +34,10 @@ public class UserEntityMapper {
   }
 
   public User toUserEntity(CreateUserDto userDto) {
+    return mapper.map(userDto, User.class);
+  }
+
+  public User toUserEntity(UserInfoDto userDto) {
     return mapper.map(userDto, User.class);
   }
 
