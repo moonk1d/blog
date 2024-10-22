@@ -15,10 +15,17 @@ import lombok.NoArgsConstructor;
 public class BlogPostInfoDto {
 
   private Long id;
+
   private String subject;
+
   private String body;
+
   @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-  private LocalDateTime timestamp;
+  private LocalDateTime createdDate;
+
+  @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
+  private LocalDateTime lastModifiedDate;
+
   private List<String> tags;
 
 }

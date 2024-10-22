@@ -3,6 +3,7 @@ package com.nazarov.projects.blog.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,8 +22,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "POSTS")
 @Getter
 @Setter
@@ -32,18 +36,27 @@ import org.springframework.data.annotation.CreatedDate;
 public class BlogPost {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @Column(nullable = false)
   private String subject;
+
   @Column(nullable = false)
   private String body;
-  @Column(nullable = false, updatable = false)
+
   @CreatedDate
-  private LocalDateTime timestamp;
+  @Column(nullable = false, updatable = false)
+  private LocalDateTime createdDate;
+
+  @LastModifiedDate
+  @Column(nullable = false)
+  private LocalDateTime lastModifiedDate;
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
   private User author;
+
   @ManyToMany
   @JoinTable(name = "post_tags", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
   private Set<Tag> tags = new HashSet<>();
@@ -52,7 +65,6 @@ public class BlogPost {
     this.subject = subject;
     this.body = body;
     this.author = author;
-    this.timestamp = LocalDateTime.now();
   }
 
   public BlogPost(String subject, String body, User author, Set<Tag> tags) {
@@ -60,7 +72,6 @@ public class BlogPost {
     this.body = body;
     this.author = author;
     this.tags = tags;
-    this.timestamp = LocalDateTime.now();
   }
 
 }

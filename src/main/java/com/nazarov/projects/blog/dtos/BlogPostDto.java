@@ -19,10 +19,16 @@ public class BlogPostDto {
   private Long id;
   @NotBlank
   private String subject;
+
   @NotBlank
   private String body;
+
   @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-  private LocalDateTime timestamp;
+  private LocalDateTime createdDate;
+
+  @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
+  private LocalDateTime lastModifiedDate;
+
   @NotNull
   private UserInfoDto author;
 
