@@ -1,5 +1,6 @@
 package com.nazarov.projects.blog.models.mappers;
 
+import com.nazarov.projects.blog.dtos.CreateTagDto;
 import com.nazarov.projects.blog.dtos.TagDto;
 import com.nazarov.projects.blog.models.Tag;
 import org.modelmapper.ModelMapper;
@@ -18,8 +19,8 @@ public class TagEntityMapper {
     return mapper.map(tag, TagDto.class);
   }
 
-  public Tag toEntity(TagDto tagDto) {
-    return mapper.map(tagDto, Tag.class);
+  public Tag toEntity(CreateTagDto createTagDto) {
+    return mapper.map(createTagDto, Tag.class);
   }
 
 }

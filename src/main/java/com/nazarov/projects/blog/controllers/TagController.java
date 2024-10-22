@@ -2,8 +2,8 @@ package com.nazarov.projects.blog.controllers;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import com.nazarov.projects.blog.exceptions.TagExistsException;
 import com.nazarov.projects.blog.dtos.BlogPostDto;
+import com.nazarov.projects.blog.dtos.CreateTagDto;
 import com.nazarov.projects.blog.dtos.PageDTO;
 import com.nazarov.projects.blog.dtos.TagDto;
 import com.nazarov.projects.blog.models.mappers.BlogPostEntityMapper;
@@ -70,10 +70,7 @@ public class TagController {
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-  public TagDto createTag(@Valid @RequestBody TagDto tag) {
-    if (tagService.tagExists(tagMapper.toEntity(tag))) {
-      throw new TagExistsException(tag.getName());
-    }
-    return tagMapper.toDto(tagService.createTag(tagMapper.toEntity(tag)));
+  public TagDto createTag(@Valid @RequestBody CreateTagDto createTagDto) {
+    return tagMapper.toDto(tagService.createTag(createTagDto));
   }
 }

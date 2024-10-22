@@ -2,12 +2,11 @@ package com.nazarov.projects.blog.controllers;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import com.nazarov.projects.blog.models.BlogPost;
-import com.nazarov.projects.blog.models.Tag;
-import com.nazarov.projects.blog.models.User;
 import com.nazarov.projects.blog.dtos.BlogPostDto;
 import com.nazarov.projects.blog.dtos.BlogPostInfoDto;
+import com.nazarov.projects.blog.dtos.CreateBlogPostDto;
 import com.nazarov.projects.blog.dtos.PageDTO;
+import com.nazarov.projects.blog.models.BlogPost;
 import com.nazarov.projects.blog.models.mappers.BlogPostEntityMapper;
 import com.nazarov.projects.blog.models.mappers.UserEntityMapper;
 import com.nazarov.projects.blog.services.BlogPostService;
@@ -15,8 +14,6 @@ import com.nazarov.projects.blog.services.TagService;
 import com.nazarov.projects.blog.services.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -70,20 +67,8 @@ public class BlogPostController {
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-  public BlogPostInfoDto createPost(@Valid @RequestBody BlogPostDto blogPostDto) {
-    User user = userService.getUser(blogPostDto.getAuthor());
-    Set<Tag> tags = new HashSet<>();
-
-    blogPostDto
-        .getTags()
-        .forEach(tag -> tags.add(tagService
-            .getTagByName(tag)
-            .orElseGet(() -> tagService.createTag(new Tag(tag)))));
-
-    blogPostDto.setAuthor(userMapper.toInfoDto(user));
-
-    BlogPost post = blogPostService.createPost(
-        blogPostMapper.toEntity(blogPostDto).toBuilder().tags(tags).build());
+  public BlogPostInfoDto createPost(@Valid @RequestBody CreateBlogPostDto createBlogPostDto) {
+    BlogPost post = blogPostService.createPost(createBlogPostDto);
     return blogPostMapper.toInfo(post);
   }
 

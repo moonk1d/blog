@@ -1,5 +1,6 @@
 package com.nazarov.projects.blog.services;
 
+import com.nazarov.projects.blog.dtos.CreateBlogPostDto;
 import com.nazarov.projects.blog.models.BlogPost;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +11,7 @@ public interface BlogPostService {
 
   BlogPost getPostDetails(Long id);
 
-  BlogPost createPost(BlogPost blogPost);
+  BlogPost createPost(CreateBlogPostDto blogPost);
 
   void deletePost(Long id);
 

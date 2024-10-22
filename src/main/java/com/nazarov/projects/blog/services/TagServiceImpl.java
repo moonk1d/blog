@@ -2,13 +2,18 @@ package com.nazarov.projects.blog.services;
 
 import static java.util.Objects.isNull;
 
+import com.nazarov.projects.blog.dtos.CreateTagDto;
 import com.nazarov.projects.blog.exceptions.NullIdException;
 import com.nazarov.projects.blog.exceptions.ResourceNotFoundException;
+import com.nazarov.projects.blog.exceptions.TagExistsException;
 import com.nazarov.projects.blog.models.BlogPost;
 import com.nazarov.projects.blog.models.Tag;
+import com.nazarov.projects.blog.models.mappers.TagEntityMapper;
 import com.nazarov.projects.blog.repositories.TagRepository;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,14 +26,22 @@ public class TagServiceImpl implements TagService {
 
   private final BlogPostService blogPostService;
 
-  public TagServiceImpl(TagRepository tagRepository, BlogPostService blogPostService) {
+  private final TagEntityMapper tagEntityMapper;
+
+  public TagServiceImpl(TagRepository tagRepository, BlogPostService blogPostService,
+      TagEntityMapper tagEntityMapper) {
     this.tagRepository = tagRepository;
     this.blogPostService = blogPostService;
+    this.tagEntityMapper = tagEntityMapper;
   }
 
   @Override
   @Transactional
-  public Tag createTag(Tag tag) {
+  public Tag createTag(CreateTagDto createTagDto) {
+    Tag tag = tagEntityMapper.toEntity(createTagDto);
+    if (tagExists(tag)) {
+      throw new TagExistsException(tag.getName());
+    }
     return tagRepository.save(tag);
   }
 
@@ -73,6 +86,17 @@ public class TagServiceImpl implements TagService {
     Tag tag = tagRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     removeTagsFromPosts(tag);
     tagRepository.deleteById(id);
+  }
+
+  @Override
+  @Transactional
+  public Set<Tag> resolveTags(List<String> tagNames) {
+    Set<Tag> tags = new HashSet<>();
+    for (String name : tagNames) {
+      Tag tag = getTagByName(name).orElseGet(() -> tagRepository.save(new Tag(name)));
+      tags.add(tag);
+    }
+    return tags;
   }
 
   private void removeTagsFromPosts(Tag tag) {
