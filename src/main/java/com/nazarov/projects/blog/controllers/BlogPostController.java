@@ -9,7 +9,6 @@ import com.nazarov.projects.blog.dtos.PageDTO;
 import com.nazarov.projects.blog.models.BlogPost;
 import com.nazarov.projects.blog.models.mappers.BlogPostEntityMapper;
 import com.nazarov.projects.blog.services.BlogPostService;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -55,7 +54,7 @@ public class BlogPostController {
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-  public BlogPostInfoDto createPost(@Valid @RequestBody CreateBlogPostDto createBlogPostDto) {
+  public BlogPostInfoDto createPost(@RequestBody CreateBlogPostDto createBlogPostDto) {
     BlogPost post = blogPostService.createPost(createBlogPostDto);
     return blogPostMapper.toInfo(post);
   }

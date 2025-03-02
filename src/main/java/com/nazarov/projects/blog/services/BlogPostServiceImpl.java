@@ -11,7 +11,6 @@ import com.nazarov.projects.blog.models.BlogPost;
 import com.nazarov.projects.blog.models.Tag;
 import com.nazarov.projects.blog.models.User;
 import com.nazarov.projects.blog.models.mappers.BlogPostEntityMapper;
-import com.nazarov.projects.blog.models.mappers.UserEntityMapper;
 import com.nazarov.projects.blog.repositories.BlogPostRepository;
 import java.util.List;
 import java.util.Set;
@@ -26,16 +25,15 @@ public class BlogPostServiceImpl implements BlogPostService {
 
   private final BlogPostRepository blogPostRepository;
   private final TagService tagService;
+  private final UserService userService;
   private final BlogPostEntityMapper blogPostEntityMapper;
-  private final UserEntityMapper userEntityMapper;
 
   public BlogPostServiceImpl(BlogPostRepository blogPostRepository,
-      TagService tagService, BlogPostEntityMapper blogPostEntityMapper,
-      UserEntityMapper userEntityMapper) {
+      TagService tagService, UserService userService, BlogPostEntityMapper blogPostEntityMapper) {
     this.blogPostRepository = blogPostRepository;
     this.tagService = tagService;
+    this.userService = userService;
     this.blogPostEntityMapper = blogPostEntityMapper;
-    this.userEntityMapper = userEntityMapper;
   }
 
   @Override
@@ -57,7 +55,7 @@ public class BlogPostServiceImpl implements BlogPostService {
   @Override
   @Transactional
   public BlogPost createPost(CreateBlogPostDto createBlogPostDto) {
-    User user = userEntityMapper.toUserEntity(createBlogPostDto.getAuthor());
+    User user = userService.getUser(createBlogPostDto.getAuthor().getId());
     Set<Tag> tags = tagService.resolveTags(createBlogPostDto.getTags());
 
     BlogPost post = blogPostEntityMapper.toEntity(createBlogPostDto, user, tags);
