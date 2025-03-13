@@ -1,4 +1,5 @@
 # Blog REST service on Spring Boot
+
 Test application to learn Spring Boot and REST services
 
 ## Run from console with mvn
@@ -32,3 +33,10 @@ $ mvn spring-boot:run -Dspring-boot.run.profiles=local
 ## How to build postman collection from the generated OpenAPI documentation
 
 1. https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-from-swagger/
+
+# Frontend
+
+Root folder contains "simple-ui" folder which contains simple frontend built on vanilla javascript
+which consumes blog API. Just start the application on
+with `mvn spring-boot:run -Dspring-boot.run.profiles=local` command, go to `simple-ui` folder and
+open `index.html`

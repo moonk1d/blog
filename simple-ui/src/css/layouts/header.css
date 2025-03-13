@@ -1,0 +1,25 @@
+.header-inner-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background: var(--primary-bg-color);
+}
+
+#logo {
+    color: var(--link-color);
+    font-size: 1.5em;
+}
+
+nav {
+    align-self: center;
+}
+
+nav a {
+    color: var(--link-color);
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: var(--link-hover-color);
+}

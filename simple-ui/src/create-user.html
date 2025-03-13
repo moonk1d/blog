@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create new user</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/components/header-component.js" type="module"></script>
+    <script src="js/components/footer-component.js" type="module"></script>
+    <script src="js/create-user.js" type="module"></script>
+</head>
+
+<body>
+    <header-component></header-component>
+
+    <main>
+        <body>
+            <h1>Create User</h1>
+            <form id="userForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+        
+                <label for="nickName">Nickname:</label>
+                <input type="text" id="nickName" name="nickName" required>
+        
+                <button id="create-user" type="submit">Create User</button>
+            </form>
+        </body>
+    </main>
+
+    <footer-component></footer-component>
+
+</body>
+</html>
