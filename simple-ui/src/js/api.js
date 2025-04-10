@@ -38,6 +38,26 @@ export const fetchUserDetails = (userId) => {
         });
 };
 
+export const fetchTags = (page, size) => {
+    return fetch(`http://localhost:8090/blog/tags?page=${page}&size=${size}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        });
+};
+
+export const fetchTagDetails = (tagId) => {
+    return fetch(`http://localhost:8090/blog/tags/${tagId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        });
+};
+
 export const createUser = (userData) => {
     return fetch('http://localhost:8090/blog/users', {
         method: 'POST',

@@ -58,6 +58,34 @@ export const showUserDetails = (container, user) => {
     container.innerHTML = userElement;
 };
 
+export const addTagsToDOM = (container, tags, onClick) => {
+    tags.forEach(tag => {
+        const tagElement = document.createElement('div');
+        tagElement.className = 'card';
+        tagElement.id = tag.id;
+        tagElement.style.cursor = 'pointer';
+        tagElement.innerHTML = `
+            <h3>${tag.name}</h3>
+            <small>Created: ${tag.createdDate}</small>
+            <small>Last Modified: ${tag.lastModifiedDate}</small>
+        `;
+        tagElement.addEventListener('click', () => onClick(tag.id));
+        container.appendChild(tagElement);
+    });
+};
+
+export const showTagDetails = (container, tag) => {
+    let tagElement = `
+        <div class="tag">
+            <h3>${tag.name}</h3>
+            <small>Created: ${tag.createdDate}</small>
+            <small>Last Modified: ${tag.lastModifiedDate}</small>
+            <button id="backButton">Back to list</button>
+        </div>
+    `;
+    container.innerHTML = tagElement;
+};
+
 export const clearContainer = (container) => {
     container.innerHTML = '';
 };
