@@ -4,18 +4,18 @@ import com.nazarov.projects.blog.dtos.CreateUserDto;
 import com.nazarov.projects.blog.dtos.UserDto;
 import com.nazarov.projects.blog.dtos.UserInfoDto;
 import com.nazarov.projects.blog.models.User;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class UserEntityMapper {
 
-  @Autowired
-  private ModelMapper mapper;
+  private final ModelMapper mapper;
 
-  @Autowired
-  private BlogPostEntityMapper blogPostEntityMapper;
+  private final BlogPostEntityMapper blogPostEntityMapper;
+
 
   public UserDto toDto(User user) {
     return mapper

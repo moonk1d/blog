@@ -2,7 +2,7 @@ package com.nazarov.projects.blog.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +26,6 @@ public class BlogPostInfoDto {
   @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
   private LocalDateTime lastModifiedDate;
 
-  private List<String> tags;
+  private Set<String> tags;
 
 }

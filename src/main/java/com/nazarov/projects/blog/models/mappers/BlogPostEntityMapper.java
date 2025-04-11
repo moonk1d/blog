@@ -7,6 +7,7 @@ import com.nazarov.projects.blog.models.BlogPost;
 import com.nazarov.projects.blog.models.Tag;
 import com.nazarov.projects.blog.models.User;
 import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class BlogPostEntityMapper {
             .getTags()
             .stream()
             .map(Tag::getName)
-            .toList())
+            .collect(Collectors.toSet()))
         .build();
   }
 
@@ -37,7 +38,7 @@ public class BlogPostEntityMapper {
             .getTags()
             .stream()
             .map(Tag::getName)
-            .toList())
+            .collect(Collectors.toSet()))
         .build();
   }
 
