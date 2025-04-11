@@ -122,7 +122,7 @@ class TagControllerIT {
 
   @Test
   void shouldGetPostsForTag() throws Exception {
-    Tag tag = tagRepository.findById(tagId).orElseThrow();
+    Tag tag = tagRepository.findByIdWithPosts(tagId).orElseThrow();
     BlogPost post = new BlogPost("Post for Tag", "Content for Tag", null);
     post.getTags().add(tag);
     blogPostRepository.save(post);

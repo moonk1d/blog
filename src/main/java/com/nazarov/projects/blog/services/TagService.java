@@ -25,4 +25,6 @@ public interface TagService {
   Page<Tag> getTags(Pageable page);
 
   Set<Tag> resolveTags(List<String> tagNames);
+
+  Tag getTagWithPosts(Long tagId);
 }

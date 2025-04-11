@@ -11,6 +11,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,5 +52,24 @@ public class Tag {
 
   public Tag(String name) {
     this.name = name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Tag tag = (Tag) o;
+    return Objects.equals(id, tag.id) && Objects.equals(name, tag.name)
+        && Objects.equals(createdDate, tag.createdDate) && Objects.equals(
+        lastModifiedDate, tag.lastModifiedDate);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, createdDate, lastModifiedDate);
   }
 }

@@ -96,4 +96,11 @@ public class TagServiceImpl implements TagService {
     return tags;
   }
 
+  @Override
+  @Transactional
+  public Tag getTagWithPosts(Long tagId) {
+    return tagRepository.findByIdWithPosts(tagId)
+        .orElseThrow(() -> new ResourceNotFoundException(tagId));
+  }
+
 }

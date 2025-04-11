@@ -55,7 +55,7 @@ public class TagController {
   @GetMapping(path = "{id}/posts", produces = APPLICATION_JSON_VALUE)
   public List<BlogPostDto> getPostsForTag(@PathVariable(value = "id") @NotNull Long id) {
     return tagService
-        .getTag(id)
+        .getTagWithPosts(id)
         .getPosts()
         .stream()
         .map(post -> postEntityMapper.toDto(post))

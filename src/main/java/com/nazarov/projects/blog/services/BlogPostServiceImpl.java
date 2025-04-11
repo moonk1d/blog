@@ -75,11 +75,7 @@ public class BlogPostServiceImpl implements BlogPostService {
   @EventListener
   public void onUserDeleted(UserDeletedEvent event) {
     Long userId = event.getUserId();
-    List<BlogPost> posts = blogPostRepository.findByAuthorId(userId);
-    for (BlogPost post : posts) {
-      post.setAuthor(null);
-      blogPostRepository.save(post);
-    }
+    blogPostRepository.updateAuthorToNullByUserId(userId);
   }
 
   @EventListener
